@@ -74,9 +74,10 @@ def print_pairings(ingredient):
                 with col3:
                     st.write(ing)
 
-        st.subheader('Try these combinations!')
-        for c in combos:
-            st.write(c)
+        if combos:
+            st.subheader('Try these combinations!')
+            for c in combos:
+                st.write(c)
                     
 
 
