@@ -43,31 +43,40 @@ def load_data():
 
 ingredientPairings = load_data()
 
-choice = st.chat_input(placeholder='Whatcha got?')
-
 allMains = list(ingredientPairings.keys())
+
+choice = st.selectbox(label='Make your choice...', placeholder='Whatcha got?', options=allMains, index=None)
 
 
 def print_pairings(ingredient):
     pairings = ingredientPairings.get(ingredient)
 
     if pairings: 
-        st.subheader(ingredient.title() + ' go well with...')
+        st.subheader(ingredient.title() + ' pairings include...')
         col1, col2, col3 = st.columns(3)
         n = len(pairings)
         per_col = n // 3
         counter = 0
+        combos = []
+
         for ing in pairings:
             counter += 1
-            if counter < per_col:
+            if ing.find('+') > -1:
+                combos.append(ing)
+                break
+            if counter <= per_col:
                 with col1:
                     st.write(ing)
-            elif counter < per_col * 2:
+            elif counter <= per_col * 2:
                 with col2:
                     st.write(ing)
             else:
                 with col3:
                     st.write(ing)
+
+        st.subheader('Try these combinations!')
+        for c in combos:
+            st.write(c)
                     
 
 
